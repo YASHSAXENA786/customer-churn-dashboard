@@ -71,8 +71,7 @@ The app will open in your browser at [http://localhost:8501](http://localhost:85
 - Communicating business insights from data
 
 ## Author
-- **Your Name**  
-  [LinkedIn](https://www.linkedin.com/) | [GitHub](https://github.com/)
+- Yash Saxena 
 
 ## License
 This project is licensed under the MIT License.
