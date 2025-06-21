@@ -2,13 +2,17 @@ import streamlit as st
 import pandas as pd
 import joblib
 import numpy as np
+import os
 
 # Load model
 @st.cache_resource
 def load_model(path):
+    if not os.path.exists(path):
+        st.error(f"Model file '{path}' not found. Please train and save the model as '{path}' before running the app.")
+        st.stop()
     return joblib.load(path)
 
-model = load_model('churn_model.pkl')
+model = load_model(os.path.join(os.path.dirname(__file__), 'churn_model.pkl'))
 
 # Feature list (excluding 'customerID' and 'Churn')
 features = [
@@ -95,7 +99,8 @@ with tabs[1]:
 
 with tabs[2]:
     st.header('Churn Data Insights')
-    df = pd.read_csv('telco_churn.csv')
+    data_path = os.path.join(os.path.dirname(__file__), 'telco_churn.csv')
+    df = pd.read_csv(data_path)
     # Sidebar filters
     gender_filter = st.sidebar.multiselect('Filter by Gender', options=df['gender'].unique(), default=list(df['gender'].unique()))
     contract_filter = st.sidebar.multiselect('Filter by Contract Type', options=df['Contract'].unique(), default=list(df['Contract'].unique()))
